@@ -1,5 +1,5 @@
 export enum BlockType {
-  "Text" = "TextBlock",
+  "Text" = "pageBlocks_textBlock_BlockType",
 }
 
 export interface BaseBlock {
@@ -14,5 +14,6 @@ export interface TextBlock extends BaseBlock {
 }
 
 export interface PageData {
-  blocks: TextBlock[];
+  title: string;
+  pageBlocks: TextBlock[];
 }

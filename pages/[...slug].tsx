@@ -7,9 +7,9 @@ const BlockMap = {
   [T.BlockType.Text]: dynamic(() => import("../components/TextBlock")),
 } as const;
 
-const Page: NextPage<T.PageData> = ({ blocks = [] }) => (
+const Page: NextPage<T.PageData> = ({ pageBlocks = [] }) => (
   <main>
-    {blocks.map((block) => {
+    {pageBlocks.map((block) => {
       const BlockComponent = BlockMap[block.__typename];
 
       return (
@@ -22,17 +22,57 @@ const Page: NextPage<T.PageData> = ({ blocks = [] }) => (
 );
 
 export const getStaticProps: GetStaticProps<T.PageData> = async ({ params = {} }) => {
-  console.log(process.env.API_ENDPOINT, params.slug);
-  const props = await new Promise<T.PageData>((r) => r({ blocks: [] }));
+  const request = await fetch(process.env.CRAFT_API_ENDPOINT!, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+      {
+        entry(section: "page", slug: "${params.slug}") {
+          ... on page_page_Entry {
+            title,
+            pageBlocks {
+              ... on pageBlocks_textBlock_BlockType {
+                __typename
+                __uid: uid
+                headline: textBlockHeadline
+                content: textBlockContent
+              }
+            }
+          }
+        }
+      }
+    `,
+    }),
+  });
+
+  const { data: result } = await request.json();
 
   return {
-    props,
+    props: result.entry || {},
     unstable_revalidate: 1,
   };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const paths = await new Promise<string[]>((r) => r(["/index"]));
+  const request = await fetch(process.env.CRAFT_API_ENDPOINT!, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query: `
+      {
+        entries(section: "page") {
+          ... on page_page_Entry {
+            slug
+          }
+        }
+      }
+    `,
+    }),
+  });
+
+  const { data: result } = await request.json();
+  const paths = result.entries.map((p: any) => `/${p.slug}`);
 
   return {
     paths,

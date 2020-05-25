@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "web:dev": "next dev",
+    "web:build": "next build",
+    "web:start": "next start",
+    "craft:start": "docker-compose up",
     "lint:types": "tsc --noEmit",
     "lint:js": "eslint --color --ext .tsx,.ts,.jsx,.js .",
     "lint": "npm run lint:types && npm run lint:js"

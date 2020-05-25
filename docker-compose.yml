@@ -1,0 +1,51 @@
+version: "2.1"
+
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 4000:80
+    depends_on:
+      - craft
+    volumes_from:
+      - craft
+    volumes:
+      - ./craft/nginx.conf:/etc/nginx/conf.d/default.conf
+  craft:
+    image: urbantrout/craftcms:mysql
+    depends_on:
+      - mariadb
+    volumes:
+      - ./craft/routes.php:/var/www/html/config/routes.php
+      - ./craft/license.key:/var/www/html/config/license.key
+      - ./craft/backups:/var/www/html/storage/backups
+    environment:
+      DEPENDENCIES: >-
+        craftcms/redactor:2.0.1
+
+      CRAFTCMS_EMAIL: admin@company.com
+      CRAFTCMS_USERNAME: admin
+      CRAFTCMS_PASSWORD: super-secret-password
+      CRAFTCMS_SITENAME: Craft CMS Installation
+      CRAFTCMS_SITEURL: ${CRAFT_SITE_URL}
+
+      AUTO_UPDATE: "false"
+
+      DB_DSN: mysql:host=mariadb;dbname=craft
+      DB_SERVER: mariadb
+      DB_NAME: craft
+      DB_USER: craft
+      DB_PASSWORD: secret
+      DB_DATABASE: craft
+      DB_SCHEMA: public
+      DB_DRIVER: mysql
+      DB_PORT: 3306
+      DB_TABLE_PREFIX: ut
+
+  mariadb:
+    image: mariadb:10.1
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_USER: craft
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: craft

@@ -1,12 +1,11 @@
 import React from "react";
 import Head from "next/head";
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <>
       <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>craftnext-frontend</title>
       </Head>
 
       <main>main</main>
@@ -30,4 +29,6 @@ export default function Home() {
       `}</style>
     </>
   );
-}
+};
+
+export default Home;

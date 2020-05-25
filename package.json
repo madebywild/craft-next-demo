@@ -5,11 +5,34 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint:types": "tsc --noEmit",
+    "lint:js": "eslint --color --ext .tsx,.ts,.jsx,.js .",
+    "lint": "npm run lint:types && npm run lint:js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "dependencies": {
     "next": "9.4.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@types/next": "9.0.0",
+    "@types/node": "14.0.5",
+    "@types/react": "16.9.35",
+    "@types/react-dom": "16.9.8",
+    "@typescript-eslint/eslint-plugin": "2.34.0",
+    "@typescript-eslint/parser": "2.34.0",
+    "babel-eslint": "10.1.0",
+    "eslint": "6.8.0",
+    "eslint-config-react-app": "5.2.1",
+    "eslint-plugin-flowtype": "4.7.0",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.20.0",
+    "eslint-plugin-react-hooks": "2.5.1",
+    "typescript": "3.9.3"
   }
 }

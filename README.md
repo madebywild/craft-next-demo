@@ -3,6 +3,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## Getting Started
 
 - Install [Docker](https://www.docker.com/)
+- Install [Docker Compose](https://docs.docker.com/compose/install/)
 - Install dependencies: `npm run i`
 
 ## Development

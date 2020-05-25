@@ -21,6 +21,9 @@ const Page: NextPage<T.PageData> = ({ pageBlocks = [] }) => (
   </main>
 );
 
+/**
+ * Fetch page data for current slug.
+ */
 export const getStaticProps: GetStaticProps<T.PageData> = async ({ params = {} }) => {
   const request = await fetch(process.env.CRAFT_API_ENDPOINT!, {
     method: "POST",
@@ -54,6 +57,9 @@ export const getStaticProps: GetStaticProps<T.PageData> = async ({ params = {} }
   };
 };
 
+/**
+ * Fetch all available page slugs.
+ */
 export const getStaticPaths: GetStaticPaths = async () => {
   const request = await fetch(process.env.CRAFT_API_ENDPOINT!, {
     method: "POST",

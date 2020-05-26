@@ -8,8 +8,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Development
 
-- Start CMS: `npm run craft:start`
-- Start Frontend: `npm run web:dev`
+- Start CMS: `npm run start-cms`
+- Start Frontend: `npm run dev`
 - Open frontend at http://localhost:3000/test-page
 - Open backend at http://localhost:4000/admin
 

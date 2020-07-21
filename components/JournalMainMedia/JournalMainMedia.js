@@ -10,6 +10,7 @@ const Container = styled.div`
 
 const JournalMainMedia = (props) => (
   <>
+    {/* {console.log(props)} */}
     <Container>
       {props.baseVideo[0] !== null && props.baseVideo[0] !== undefined &&
         <video

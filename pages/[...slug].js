@@ -8,16 +8,16 @@ import {
   GLOBAL_SITE_SETTINGS_QUERY,
 } from "../cms/queries";
 
+import JournalMainMedia from "../components/JournalMainMedia/JournalMainMedia";
+
 const BlockMap = {
   pageBlocks_copy_BlockType: dynamic(() => import("../components/CopyBlock/CopyBlock")),
   pageBlocks_media_BlockType: dynamic(() => import("../components/MediaBlock/MediaBlock")),
-  journalMainMedia_media_BlockType: dynamic(() => import("../components/JournalMainMedia/JournalMainMedia")),
 };
 
 const Page = ({ pageData, siteSettings }) => (
   <main>
-    {console.log(pageData.journalMainMedia)}
-    {/* {pageData.journalMainMedia && <BlockMap.journalMainMedia_media_BlockType {...pageData.journalMainMedia} />} */}
+    {pageData.journalMainMedia && <JournalMainMedia {...pageData.journalMainMedia[0]} />}
     {pageData.pageBlocks.map((block) => {
       if (BlockMap[block.blockType] === undefined) {
         return (
